@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Request
 from fastapi.responses import HTMLResponse
 from sqlmodel import Session, select
 from .db import init_db, get_session
@@ -6,6 +6,7 @@ from .models import Holding, NewsItem, Analysis, DailyReport
 from .news import collect_news_for_holding
 from .analyzer import analyze_unprocessed_news, make_report
 from .scheduler import start_scheduler, run_watch_cycle
+from .line_bot import handle_line_webhook
 from .portfolio import portfolio_snapshot, combined_alert_score, yen, pct
 
 app = FastAPI(title="MetaTrend Watcher", version="0.2.0")
@@ -181,3 +182,9 @@ def dashboard(session: Session = Depends(get_session)):
 
     parts.append("</body></html>")
     return "".join(parts)
+
+
+@app.post("/line-webhook")
+async def line_webhook(request: Request, session: Session = Depends(get_session)):
+    payload = await request.json()
+    return handle_line_webhook(payload, session)
