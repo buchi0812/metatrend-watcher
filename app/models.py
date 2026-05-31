@@ -20,7 +20,7 @@ class NewsItem(SQLModel, table=True):
     title: str
     url: str = Field(index=True, unique=True)
     source: str = ""
-    published_at: Optional[datetime] = None
+    published_at: datetime | None = None
     summary: str = ""
     fetched_at: datetime = Field(default_factory=datetime.utcnow)
 
