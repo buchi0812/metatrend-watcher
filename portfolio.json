@@ -1,0 +1,17 @@
+{
+  "symbol_yahoo": "285A.T",
+  "company_name": "キオクシアホールディングス",
+  "sell_rule": "上昇トレンドが続く限り保有。売るときは全売却。",
+  "positions": [
+    {
+      "account": "NISA",
+      "average_price_yen": 51002.0,
+      "shares": 30
+    },
+    {
+      "account": "特定",
+      "average_price_yen": 49803.13,
+      "shares": 100
+    }
+  ]
+}
