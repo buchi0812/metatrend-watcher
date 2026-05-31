@@ -1,9 +1,8 @@
 from datetime import datetime
-from typing import Optional
 from sqlmodel import SQLModel, Field
 
 class Holding(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     ticker: str = Field(index=True)
     name: str
     market: str = "JP"
@@ -16,7 +15,7 @@ class Holding(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class NewsItem(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     holding_id: int = Field(index=True)
     title: str
     url: str = Field(index=True, unique=True)
@@ -26,9 +25,9 @@ class NewsItem(SQLModel, table=True):
     fetched_at: datetime = Field(default_factory=datetime.utcnow)
 
 class Analysis(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     holding_id: int = Field(index=True)
-    news_item_id: Optional[int] = Field(default=None, index=True)
+    news_item_id: int | None = Field(default=None, index=True)
     sentiment: str
     impact: int
     horizon: str
@@ -39,7 +38,7 @@ class Analysis(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class DailyReport(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     holding_id: int = Field(index=True)
     report_type: str = "scheduled"
     meta_trend_score: int
